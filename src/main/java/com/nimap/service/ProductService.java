@@ -21,21 +21,21 @@ public class ProductService {
 		return productRepository.findAll(PageRequest.of(page - 1, 10));
 	}
 
-	public Product createProduct(Product Product) {
-		return productRepository.save(Product);
+	public Product createProduct(Product product) {
+		return productRepository.save(product);
 	}
 
 	public ResponseEntity<Product> getProductById(Long id) {
-		Optional<Product> Product = productRepository.findById(id);
+		Optional<Product> product = productRepository.findById(id);
 
-		return Product.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+		return product.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 
 	}
 
-	public ResponseEntity<Product> updateProduct(Long id, Product Product) {
+	public ResponseEntity<Product> updateProduct(Long id, Product product) {
 		return productRepository.findById(id).map(existingProduct -> {
-			Product.setId(id);
-			return ResponseEntity.ok(productRepository.save(Product));
+			product.setId(id);
+			return ResponseEntity.ok(productRepository.save(product));
 		}).orElse(ResponseEntity.notFound().build());
 	}
 
